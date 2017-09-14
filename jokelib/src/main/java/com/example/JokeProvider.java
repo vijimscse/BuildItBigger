@@ -7,8 +7,11 @@ import java.util.Random;
  */
 public class JokeProvider {
     private static String[] jokes = new String[]{
-            "Computers make very fast, very accurate mistakes.",
+            "I know HTML How to meet ladies.",
+           "My attitude is not bad it's in Beta.",
+            "When code is little code after some time.",
             "CAPS LOCK – Preventing Login Since 1980.",
+            "I do not enjoy computer jokes, not one bit",
             "To err is human – and to blame it on a computer is even more so.",
             "The truth is out there. Anybody got the URL?",
             "The box said ‘Requires Windows Vista or better’. So I installed LINUX.",
