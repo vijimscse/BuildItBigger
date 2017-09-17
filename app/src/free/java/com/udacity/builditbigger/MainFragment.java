@@ -21,6 +21,7 @@ import butterknife.OnClick;
 
 /**
  * Created by Viji on 9/10/2017.
+ * Shows UI for the MainActivity
  */
 
 public class MainFragment extends Fragment implements JokeListener {

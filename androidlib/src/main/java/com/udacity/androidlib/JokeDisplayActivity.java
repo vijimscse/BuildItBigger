@@ -6,11 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * Created by Viji
+ * Support Activity to display Joke
+ */
 public class JokeDisplayActivity extends AppCompatActivity {
 
 
     public static final String EXTRA_JOKE = "extra_joke";
 
+    /**
+     *
+     * @param context
+     * @param joke
+     * @return JokeDisplayActivity {@link Intent}
+     */
     public static Intent getJokeDisplayActivityIntent(Context context, String joke) {
         Intent intent = new Intent(context, JokeDisplayActivity.class);
         intent.putExtra(EXTRA_JOKE, joke);

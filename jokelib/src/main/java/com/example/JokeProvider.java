@@ -3,12 +3,13 @@ package com.example;
 import java.util.Random;
 
 /**
+ * Created by Viji
  * Class to provide the jokes
  */
 public class JokeProvider {
     private static String[] jokes = new String[]{
             "I know HTML How to meet ladies.",
-           "My attitude is not bad it's in Beta.",
+            "My attitude is not bad it's in Beta.",
             "When code is little code after some time.",
             "CAPS LOCK – Preventing Login Since 1980.",
             "I do not enjoy computer jokes, not one bit",
@@ -21,6 +22,10 @@ public class JokeProvider {
             "Programmers are tools for converting caffeine into code."
     };
 
+    /**
+     *
+     * @return Joke string
+     */
     public static String getJoke() {
         int size = jokes.length;
         Random random = new Random();

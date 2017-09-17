@@ -19,6 +19,10 @@ import static junit.framework.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class JokeAsyncTest {
 
+    /**
+     * Tests {@link JokeAsync}
+     * @throws Exception
+     */
     @Test
     public void testDoInBackground() throws Exception{
         try {
