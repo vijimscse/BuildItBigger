@@ -2,4 +2,5 @@
     <string name="app_name">BuildItBigger</string>
     <string name="button_text">Show Joke</string>
     <string name="hello">Hello</string>
+    <string name="no_internet">Please check your internet connection.</string>
 </resources>

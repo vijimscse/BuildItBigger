@@ -2,7 +2,7 @@ package com.udacity.builditbigger;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +15,21 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.udacity.androidlib.JokeDisplayActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Viji on 9/10/2017.
  */
 
-public class MainFragment extends Fragment implements View.OnClickListener, JokeListener {
-    private static final String TAG = MainFragment.class.getSimpleName();
+public class MainFragment extends Fragment implements JokeListener {
+    private static final String TEST_DEVICE_ID = "33BE2250B43518CCDA7DE426D04EE232";
     private InterstitialAd mInterstitialAd;
     private AdRequest mAdRequest;
-    private ProgressBar mProgressBar;
+
+    @BindView(R.id.progressBar)
+    public ProgressBar mProgressBar;
 
     public MainFragment() {
     }
@@ -31,18 +37,17 @@ public class MainFragment extends Fragment implements View.OnClickListener, Joke
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
-        root.findViewById(R.id.btn_joke).setOnClickListener(this);
+        final View root = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, root);
 
         MobileAds.initialize(getActivity(), getString(R.string.banner_ad_unit_id));
-        mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
 
         mInterstitialAd = new InterstitialAd(getActivity());
         mInterstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
 
         showNewInterstitial();
 
-        AdView adView = (AdView) root.findViewById(R.id.adView);
+        AdView adView = root.findViewById(R.id.adView);
         adView.loadAd(mAdRequest);
 
         mInterstitialAd.setAdListener(new AdListener() {
@@ -55,11 +60,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Joke
         return root;
     }
 
-    @Override
-    public void onClick(View view) {
+    @OnClick(R.id.btn_joke)
+    public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_joke:
-                showAd();
+                if (NetworkUtility.isInternetConnected(getActivity())) {
+                    showAd();
+                } else {
+                    Snackbar.make(view, R.string.no_internet, Snackbar.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -74,9 +83,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Joke
 
     private void showNewInterstitial() {
         mAdRequest = new AdRequest.Builder()
-                .addTestDevice("33BE2250B43518CCDA7DE426D04EE232")
+                .addTestDevice(TEST_DEVICE_ID)
                 .build();
-        Log.d(TAG, "showNewInterstitial: isTestDevice " + mAdRequest.isTestDevice(getActivity()));
         mInterstitialAd.loadAd(mAdRequest);
     }
 

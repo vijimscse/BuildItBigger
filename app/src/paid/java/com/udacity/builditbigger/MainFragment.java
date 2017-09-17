@@ -2,6 +2,7 @@ package com.udacity.builditbigger;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,19 @@ import android.widget.ProgressBar;
 
 import com.udacity.androidlib.JokeDisplayActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Viji on 9/10/2017.
  */
 
-public class MainFragment extends Fragment implements View.OnClickListener, JokeListener {
+public class MainFragment extends Fragment implements JokeListener {
 
 
-    private ProgressBar mProgressBar;
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
 
     public MainFragment() {
     }
@@ -26,18 +32,20 @@ public class MainFragment extends Fragment implements View.OnClickListener, Joke
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-        root.findViewById(R.id.btn_joke).setOnClickListener(this);
-
-        mProgressBar = (ProgressBar) root.findViewById(R.id.progressBar);
+        ButterKnife.bind(this, root);
 
         return root;
     }
 
-    @Override
-    public void onClick(View view) {
+    @OnClick(R.id.btn_joke)
+    public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_joke:
-                fetchJoke();
+                if (NetworkUtility.isInternetConnected(getActivity())) {
+                    fetchJoke();
+                } else {
+                    Snackbar.make(view, R.string.no_internet, Snackbar.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
